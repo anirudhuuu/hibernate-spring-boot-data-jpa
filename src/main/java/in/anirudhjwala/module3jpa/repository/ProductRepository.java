@@ -1,6 +1,8 @@
 package in.anirudhjwala.module3jpa.repository;
 
 import in.anirudhjwala.module3jpa.entities.ProductEntity;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
@@ -14,6 +16,15 @@ import java.util.Optional;
 public interface ProductRepository extends JpaRepository<ProductEntity, Long> {
 
     List<ProductEntity> findByTitle(String pepsi);
+
+    // Find all elements and order by price
+    List<ProductEntity> findByOrderByPrice();
+
+    // Find all elements with sort parameter on any field
+    List<ProductEntity> findBy(Sort sort);
+
+    // Find all elements by title with pagination
+    List<ProductEntity> findByTitleContainingIgnoreCase(String title, Pageable pageable);
 
     // Find elements after a certain date
     List<ProductEntity> findByCreatedAtAfter(LocalDateTime after);
